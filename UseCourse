@@ -1,0 +1,56 @@
+import java.util.Scanner;
+class CollegeCourse
+{
+    protected String name;
+    protected int courseNo;
+    protected int credits;
+    protected int fee;
+    CollegeCourse()
+    {
+    }
+    CollegeCourse(String name,int courseNo,int credits)
+    {
+        this.name = name;
+        this.courseNo = courseNo;
+        this.credits = credits;
+        this.fee = 120*credits;
+    }
+    public void display()
+    {
+        System.out.println("this is a normal course and so normal fee");
+        System.out.println("The name is "+name+" , the course number is "+courseNo+" ,the credits for this course is "+credits+" and the fee have to be paid is "+fee);
+    }
+}
+
+class LabCourse extends CollegeCourse
+{
+    LabCourse(String name, int courseNo, int credits)
+    {
+        super(name, courseNo, credits);
+    }
+    @Override
+    public void display()
+    {
+        System.out.println("This course is a lab course and fee is extra 50");
+        System.out.println("The name is " + name + " , the course number is " + courseNo + " ,the credits for this course is " + credits + " and the fee have to be paid is " + (50 + fee));
+    }
+}
+
+public class UseCourse
+{
+    public static void main(String[] args) {
+        String name;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the course name");
+        name = sc.next();
+        if(name.equals("BIO") | name.equals("CHM") | name.equals("CIS") | name.equals("PHY"))
+        {
+            LabCourse l = new LabCourse(name,1001,3);
+            l.display();
+        }
+        else{
+            CollegeCourse c= new CollegeCourse(name,2001,4);
+            c.display();
+        }
+    }
+}
