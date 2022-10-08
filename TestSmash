@@ -1,0 +1,117 @@
+class SugarSmashPlayer {
+    private int idNumber;
+    private String name;
+    int[] scores;
+    public SugarSmashPlayer(int idNumber, String name) {
+        // Initialize variables
+        this.idNumber = idNumber;
+        this.name = name;
+        this.scores = new int[10];
+    }
+    public SugarSmashPlayer(int idNumber, String name, int size) {
+        // Initialize variables
+        this.idNumber = idNumber;
+        this.name = name;
+        this.scores = new int[size];
+    }
+public SugarSmashPlayer(SugarSmashPlayer player, int size) {
+        // Initialize variables
+        this.idNumber = player.idNumber;
+        this.name = player.name;
+        this.scores = new int[size];
+        for (int i = 0; i < player.scores.length; i++) {
+            this.scores[i] = player.scores[i];
+        }
+    }
+    public int getIdNumber() {
+        return idNumber;
+    }
+    public void setIdNumber(int idNumber) {
+        this.idNumber = idNumber;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public int getScore(int level) {
+        return scores[level-1];
+    }
+    public void setScore(int score, int level) {
+if (level < 1 || level > 10) {
+            System.out.println("Error: Level out of range.");
+        }else if(level == 1) {
+scores[level-1] = score;
+            System.out.println("Score set for level " + level + ".");
+}else {
+boolean check = true;
+for(int i = 0; i < level-1; i++) {
+                	if(scores[i] < 100) {
+check = false;
+                }
+            }
+if(check) {
+                scores[level-1] = score;
+                System.out.println("Score set for level " + level + ".");
+            }else {     
+                System.out.println("Error: This level is not yet available.");
+            }
+        }
+    }
+}
+class PremiumSugarSmashPlayer extends SugarSmashPlayer {
+   
+    public PremiumSugarSmashPlayer(int idNumber, String name) {        
+        super(idNumber, name, 50);
+    }
+    public PremiumSugarSmashPlayer(SugarSmashPlayer player) {
+        // Initialize variables
+        // Call the constructor of the superclass
+        // pass 50 as the size of the array
+        super(player, 50);
+    }
+    public void setScore(int score, int level) {   
+        if (level < 1 || level > 50) {
+            System.out.println("Error: Level out of range.");
+        }else if(level == 1) {
+            scores[level-1] = score;
+            System.out.println("Score set for level " + level + ".");
+        }else {
+            boolean check = true;
+            for(int i = 0; i < level-1; i++) {
+                if(scores[i] < 100) {
+                    check = false;
+                }
+            }
+            if(check) {
+                scores[level-1] = score;
+                System.out.println("Score set for level " + level + ".");
+            }else {
+                
+                System.out.println("Error: This level is not yet available.");
+            }
+        }
+    }
+}
+public class TestSmash {
+    public static void main(String[] args) {       
+        SugarSmashPlayer player1 = new SugarSmashPlayer(1, "Player 1");
+        player1.setScore(100, 1);
+        player1.setScore(300, 3);
+        player1.setScore(550, 5); // not available
+        player1.setScore(1200, 11); // out of range 
+        player1.setScore(400, 4); 
+        player1.setScore(500, 5);
+        player1.setScore(450, 6); 
+        player1.setScore(700, 7);
+        player1.setScore(800, 8); 
+        player1.setScore(900, 9); 
+        player1.setScore(1000, 10); 
+        player1.setScore(1100, 11); 
+        PremiumSugarSmashPlayer player1premium = new PremiumSugarSmashPlayer(player1); 
+        System.out.println("Player1 score is " + player1premium.getScore(1)); 
+        System.out.println("Player1 score for level given is " + player1premium.getScore(10));
+        player1premium.setScore(1200, 11); 
+    }
+}
